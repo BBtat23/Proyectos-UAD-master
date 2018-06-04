@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
 
 import com.example.bea.bakingapp.adapter.RecipeAdapter;
 import com.example.bea.bakingapp.data.Ingredients;
@@ -19,7 +18,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements RecipeAdapter.ListItemClickListener{
+public class RecipeMainActivity extends AppCompatActivity implements RecipeAdapter.ListItemClickListener{
     private String BASE_API = "https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/baking.json";
     private List<Recipe> mRecipe = new ArrayList<>();
     private RecipeAdapter mAdapter;
@@ -41,8 +40,8 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Lis
 
     @Override
     public void onListItemClick(int clickedItemIndex) {
-//        Toast.makeText(MainActivity.this,"List Item clicked: " + clickedItemIndex, Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(MainActivity.this,StepsIngredientsActivity.class);
+//        Toast.makeText(RecipeMainActivity.this,"List Item clicked: " + clickedItemIndex, Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(RecipeMainActivity.this,StepsIngredientsActivity.class);
         startActivity(intent);
 
     }
