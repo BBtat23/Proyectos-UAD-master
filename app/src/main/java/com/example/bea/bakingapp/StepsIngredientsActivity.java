@@ -25,5 +25,6 @@ public class StepsIngredientsActivity extends AppCompatActivity {
                 .add(R.id.steps_container,stepsFragment)
                 .commit();
 
+
     }
 }

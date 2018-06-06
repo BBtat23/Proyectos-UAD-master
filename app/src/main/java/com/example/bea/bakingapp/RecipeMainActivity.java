@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.example.bea.bakingapp.adapter.RecipeAdapter;
 import com.example.bea.bakingapp.data.Ingredients;
@@ -20,7 +21,7 @@ import java.util.List;
 
 public class RecipeMainActivity extends AppCompatActivity implements RecipeAdapter.ListItemClickListener{
     private String BASE_API = "https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/baking.json";
-    private List<Recipe> mRecipe = new ArrayList<>();
+    private ArrayList<Recipe> mRecipe = new ArrayList<>();
     private RecipeAdapter mAdapter;
     private RecyclerView mRecyclerView;
 
@@ -35,7 +36,6 @@ public class RecipeMainActivity extends AppCompatActivity implements RecipeAdapt
         mRecyclerView.setAdapter(mAdapter);
 
         new RecipeAsynctask().execute();
-        new StepsAsynctask().execute();
     }
 
     @Override
@@ -47,10 +47,10 @@ public class RecipeMainActivity extends AppCompatActivity implements RecipeAdapt
     }
 
     //Create a new AsyncTask
-    public class RecipeAsynctask extends AsyncTask<Void, Void, List<Recipe>> {
+    public class RecipeAsynctask extends AsyncTask<Void, Void, ArrayList<Recipe>> {
 
         @Override
-        protected List<Recipe> doInBackground(Void... voids) {
+        protected ArrayList<Recipe> doInBackground(Void... voids) {
 
             //Create URL
             URL urlApi = NetworkUtils.buildUrlApi();
@@ -58,7 +58,8 @@ public class RecipeMainActivity extends AppCompatActivity implements RecipeAdapt
             try {
                 String urlApiConnection = NetworkUtils.getResponseFromHttpUrl(urlApi);
                 //Pass the string above to get RecipeJSON
-                List<Recipe> recipeJson = JSONUtils.getRecipeJSONUtils(urlApiConnection);
+                ArrayList<Recipe> recipeJson = JSONUtils.getRecipeJSONUtils(urlApiConnection);
+                Log.i("AsyncTask", "recipe count: " + recipeJson.size());
                 //Return
                 return recipeJson;
             } catch (Exception e) {
@@ -68,56 +69,56 @@ public class RecipeMainActivity extends AppCompatActivity implements RecipeAdapt
         }
 
         @Override
-        protected void onPostExecute(List<Recipe> recipes) {
+        protected void onPostExecute(ArrayList<Recipe> recipes) {
             mAdapter.swapData(recipes);
         }
     }
 
-    public class IngredientsAsynctask extends AsyncTask<Void, Void, List<Ingredients>> {
-
-        @Override
-        protected List<Ingredients> doInBackground(Void... voids) {
-
-            URL urlApi = NetworkUtils.buildUrlApi();
-
-            try {
-                String urlApiConnection = NetworkUtils.getResponseFromHttpUrl(urlApi);
-                List<Ingredients> ingredientsJson = JSONUtils.getIngredientsJSONUtils(urlApiConnection);
-
-                return ingredientsJson;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(List<Ingredients> ingredients) {
-            super.onPostExecute(ingredients);
-        }
-    }
-
-    public class StepsAsynctask extends AsyncTask<Void, Void, List<Steps>> {
-
-        @Override
-        protected List<Steps> doInBackground(Void... voids) {
-
-            URL urlApi = NetworkUtils.buildUrlApi();
-
-            try {
-                String urlApiConnection = NetworkUtils.getResponseFromHttpUrl(urlApi);
-                List<Steps> stepsJson = JSONUtils.getStepsJSONUtils(urlApiConnection);
-
-                return stepsJson;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(List<Steps> steps) {
-            super.onPostExecute(steps);
-        }
-    }
+//    public class IngredientsAsynctask extends AsyncTask<Void, Void, List<Ingredients>> {
+//
+//        @Override
+//        protected List<Ingredients> doInBackground(Void... voids) {
+//
+//            URL urlApi = NetworkUtils.buildUrlApi();
+//
+//            try {
+//                String urlApiConnection = NetworkUtils.getResponseFromHttpUrl(urlApi);
+//                List<Ingredients> ingredientsJson = JSONUtils.getIngredientsJSONUtils(urlApiConnection);
+//
+//                return ingredientsJson;
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//            return null;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(List<Ingredients> ingredients) {
+//            super.onPostExecute(ingredients);
+//        }
+//    }
+//
+//    public class StepsAsynctask extends AsyncTask<Void, Void, List<Steps>> {
+//
+//        @Override
+//        protected List<Steps> doInBackground(Void... voids) {
+//
+//            URL urlApi = NetworkUtils.buildUrlApi();
+//
+//            try {
+//                String urlApiConnection = NetworkUtils.getResponseFromHttpUrl(urlApi);
+//                List<Steps> stepsJson = JSONUtils.getStepsJSONUtils(urlApiConnection);
+//                Log.i("AsyncTask", "steps count: " + stepsJson.size());
+//                return stepsJson;
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//            return null;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(List<Steps> steps) {
+//            super.onPostExecute(steps);
+//        }
+//    }
 }

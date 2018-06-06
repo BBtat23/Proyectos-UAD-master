@@ -12,19 +12,20 @@ import android.widget.TextView;
 import com.example.bea.bakingapp.R;
 import com.example.bea.bakingapp.data.Recipe;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
 
     private Context context;
-    private List<Recipe> mRecipeData;
+    private ArrayList<Recipe> mRecipeData;
     final private ListItemClickListener mOnclicklistener;
 
     public interface ListItemClickListener{
         void onListItemClick(int clickedItemIndex);
     }
 
-    public RecipeAdapter(Context context, List listRecipe, ListItemClickListener listener){
+    public RecipeAdapter(Context context, ArrayList listRecipe, ListItemClickListener listener){
         this.context = context;
         this.mRecipeData = listRecipe;
         this.mOnclicklistener = listener;
@@ -67,7 +68,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     }
 
 
-    public void swapData(List<Recipe> movieObjectArrayList) {
+    public void swapData(ArrayList<Recipe> movieObjectArrayList) {
         if (movieObjectArrayList == null || movieObjectArrayList.size() == 0)
             return;
         if (mRecipeData != null && mRecipeData.size() > 0)

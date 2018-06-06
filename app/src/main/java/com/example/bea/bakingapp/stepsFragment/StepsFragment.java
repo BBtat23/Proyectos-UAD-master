@@ -1,5 +1,6 @@
 package com.example.bea.bakingapp.stepsFragment;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.bea.bakingapp.R;
+import com.example.bea.bakingapp.StepsActivity;
 
 public class StepsFragment extends Fragment {
 
@@ -30,6 +32,15 @@ public class StepsFragment extends Fragment {
 
         //Set the image resource to display
         textView.setText("prueba");
+
+        //Set a click listener on the textView
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),StepsActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //Return root view
         return rootView;
